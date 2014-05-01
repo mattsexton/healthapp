@@ -1,0 +1,400 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"data",
+				"datastores"
+			],
+			[
+				"hea",
+				"healthTable"
+			],
+			[
+				"datas",
+				"datastore"
+			],
+			[
+				"fun",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 427,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/core.js",
+			"settings":
+			{
+				"buffer_size": 1442,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/healthdata.js",
+			"settings":
+			{
+				"buffer_size": 2314,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 127.0,
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"js",
+				"JSHint: Clear Annotations"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"jsh",
+				"JSHint"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"jshi",
+				"JSHint"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"prett",
+				"HTMLPrettify"
+			],
+			[
+				"form",
+				"Format: Javascript"
+			],
+			[
+				"in",
+				"Indent XML"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"package control",
+				"Package Control: Discover Packages"
+			],
+			[
+				"syntax j",
+				"Set Syntax: JSON"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 345.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/JSHint Gutter/Default (Windows).sublime-keymap",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/User/JsFormat.sublime-settings",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/JsFormat/JsFormat.sublime-settings",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/JSHint Gutter/.jshintrc",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/JSHint Gutter/JSHint.sublime-settings",
+		"/C/Users/msexton/Documents/GitHub/healthapp/healthapp.sublime-project",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/HTML-CSS-JS Prettify/Default (Windows).sublime-keymap",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/JsFormat/Default (Windows).sublime-keymap",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Users/msexton/SkyDrive/Sublime Text/Sublime Text 3/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/msexton/Desktop/Deploy-WpsService.txt",
+		"/C/Users/msexton/Desktop/KEEPTHISServiceModel.sdm",
+		"/C/ServiceDrivenUX/Prototype/rigs",
+		"/C/ServiceDrivenUX/Prototype/rigs2",
+		"/C/WPCom/Next/private/WPComWebRole/Deployment/ServiceModel/ConsumerWebApplication/ServiceBaseModel.tt",
+		"/C/WPCom/Next/private/WPComWebRole/Deployment/ServiceModel/ConsumerWebApplication/WindowsPhoneNext/ServiceBaseModel.tt",
+		"/C/WPCom/Next/private/WPComWebRole/Deployment/ServiceModel/ConsumerWebApplication/WindowsPhoneNext/ServiceDeploymentTemplate.tt",
+		"/C/ServiceDrivenUX/Prototype/private/ServiceDrivenUX/Deployment/ServiceModel/ConsumerWebApplication/WindowsPhoneNext/ServiceModelOverrides.so",
+		"/C/ServiceDrivenUX/Prototype/private/ServiceDrivenUX/Deployment/ServiceModel/ConsumerWebApplication/WindowsPhoneNext/ServiceDeploymentTemplate.sdt",
+		"/C/ServiceDrivenUX/Prototype/private/ServiceDrivenUX/Deployment/ServiceModel/ConsumerWebApplication/WindowsPhoneNext/ServiceBaseModel.sbm",
+		"/C/Users/msexton/Desktop/moniker error",
+		"/C/Users/msexton/Desktop/servicesignup.js",
+		"/C/Users/msexton/Desktop/text.html",
+		"/C/Users/msexton/Desktop/dirs.sln",
+		"/C/Users/msexton/Desktop/oobe.main.js",
+		"/C/Users/msexton/SkyDrive/Sublime Text/TestProject/Notes from MSA.txt",
+		"/C/Users/msexton/Desktop/HTMLPage1.html",
+		"/C/Users/msexton/SkyDrive/Sublime Text/sampleproject.sublime-project",
+		"/C/Users/msexton/OneDrive @ Microsoft/Notes from MSA",
+		"/C/Users/msexton/Desktop/test.js",
+		"/C/Users/msexton/SkyDrive/Sublime Text/sampleworkspace.sublime-workspace"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"mds",
+			"market",
+			"marketplace",
+			"hip",
+			"atlas",
+			"cluster",
+			"Ready",
+			"ClusterName",
+			"role ",
+			"FullObjectPath              :"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Teardown-OrcaRigs -EnvironmentName WPS_INT -FullObjectPath"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 427,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								427,
+								427
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/core.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1442,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1372,
+								1372
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/healthdata.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 198.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "healthapp.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 188.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 1
+	}
+}
