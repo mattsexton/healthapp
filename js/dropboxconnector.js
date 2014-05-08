@@ -1,87 +1,65 @@
-if (!window.HealthApp)
-{
-    var HealthApp = {};
-}
+HealthApp.dropboxConnector = (function(healthdata, dropbox) {
+	'use strict';
 
-HealthApp.dropboxConnector = function(healthdata, dropbox)
-{
-    'use strict';
+	var module = {},
+		client;
 
-    var module = {},
-        client;
+	module.init = function() {
+		getClient();
+		authenticatUser();
+	};
 
-    console.dir(healthdata);
-    console.dir(dropbox);
+	module.addRecord = function(record) {
+		var dsm = client.getDatastoreManager();
 
-    module.init = function()
-    {
-        getClient();
-        authenticatUser();
-    };
+		dsm.openDefaultDatastore(function(error, datastore) {
+			if (error) {
+				alert('Error opening data store: ' + error);
+				return;
+			}
 
-    module.addRecord = function(record)
-    {
-        var dsm = client.getDatastoreManager();
+			var healthTable = datastore.getTable('health');
+			healthTable.insert(record);
+			console.dir(healthTable.query());
+		});
 
-        dsm.openDefaultDatastore(function(error, datastore)
-        {
-            if (error)
-            {
-                alert('Error opening data store: ' + error);
-                return;
-            }
+		dsm.listDatastores(function(error, datastores) {
+			console.dir(datastores);
+		});
 
-            var healthTable = datastore.getTable('health');
-            healthTable.insert(record);
-            console.dir(healthTable.query());
-        });
+		dsm.close();
+	};
 
-        dsm.listDatastores(function(error, datastores)
-        {
-            console.dir(datastores);
-        });
+	function getClient() {
+		if (!client) {
+			console.log('creating client');
+			client = new dropbox.Client({
+				key: 'lp5b4gpd7jc2z47',
+				secret: 'g8i959uzvy6qfwi',
+				uid: 508841
+			});
+		}
+		else {
+			console.log('client created already');
+		}
+	}
 
-        dsm.close();
-    };
+	function authenticatUser() {
+		if (!client.isAuthenticated()) {
+			client.authenticate({
+					interactive: false
+				},
+				function(error) {
+					if (error) {
+						alert('Authentication error: ' + error);
+					}
+				}
+			);
+		}
+	}
 
-    function getClient()
-    {
-        if (!client)
-        {
-            console.log('creating client');
-            client = new dropbox.Client(
-            {
-                key: 'lp5b4gpd7jc2z47',
-                secret: 'g8i959uzvy6qfwi',
-                uid: 508841
-            });
-        }
-        else
-        {
-            console.log('client created already');
-        }
-    }
-
-    function authenticatUser()
-    {
-        if (!client.isAuthenticated())
-        {
-            client.authenticate(
-                {
-                    interactive: false
-                },
-                function(error)
-                {
-                    if (error)
-                    {
-                        alert('Authentication error: ' + error);
-                    }
-                }
-            );
-        }
-    }
-
-    return module;
-};
-
-define(['healthdata', 'dropbox'], HealthApp.dropboxConnector);
+	return module;
+}(
+	HealthApp.healthdata,
+	Dropbox
+));
