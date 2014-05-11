@@ -1,4 +1,6 @@
-HealthApp.healthdata = [
+define(
+{
+	healthData: [
 	{
 		date: 'Mar 19, 2014',
 		weight: 212.0,
@@ -6,7 +8,7 @@ HealthApp.healthdata = [
 		bpdia: 87,
 		heartrate: 80,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 20, 2014',
 		weight: 211.2,
@@ -14,7 +16,7 @@ HealthApp.healthdata = [
 		bpdia: 94,
 		heartrate: 90,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 21, 2014',
 		weight: 209.5,
@@ -22,7 +24,7 @@ HealthApp.healthdata = [
 		bpdia: 86,
 		heartrate: 90,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 23, 2014',
 		weight: 211.6,
@@ -30,7 +32,7 @@ HealthApp.healthdata = [
 		bpdia: 89,
 		heartrate: 89,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 25, 2014',
 		weight: 214.4,
@@ -38,7 +40,7 @@ HealthApp.healthdata = [
 		bpdia: 84,
 		heartrate: 88,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 26, 2014',
 		weight: 211.8,
@@ -46,7 +48,7 @@ HealthApp.healthdata = [
 		bpdia: 82,
 		heartrate: 77,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 27, 2014',
 		weight: 209.8,
@@ -54,7 +56,7 @@ HealthApp.healthdata = [
 		bpdia: 87,
 		heartrate: 92,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 28, 2014',
 		weight: 209.4,
@@ -62,7 +64,7 @@ HealthApp.healthdata = [
 		bpdia: 89,
 		heartrate: 65,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Mar 31, 2014',
 		weight: 209.6,
@@ -70,7 +72,7 @@ HealthApp.healthdata = [
 		bpdia: 89,
 		heartrate: 95,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 1, 2014',
 		weight: 209.5,
@@ -78,7 +80,7 @@ HealthApp.healthdata = [
 		bpdia: 89,
 		heartrate: 95,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 2, 2014',
 		weight: 209.8,
@@ -86,7 +88,7 @@ HealthApp.healthdata = [
 		bpdia: 84,
 		heartrate: 87,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 9, 2014',
 		weight: 211.8,
@@ -94,7 +96,7 @@ HealthApp.healthdata = [
 		bpdia: 89,
 		heartrate: 85,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 11, 2014',
 		weight: 208.8,
@@ -102,7 +104,7 @@ HealthApp.healthdata = [
 		bpdia: 92,
 		heartrate: 83,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 15, 2014',
 		weight: 209.4,
@@ -110,7 +112,7 @@ HealthApp.healthdata = [
 		bpdia: 92,
 		heartrate: 83,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 21, 2014',
 		weight: 209.6,
@@ -118,7 +120,7 @@ HealthApp.healthdata = [
 		bpdia: 99,
 		heartrate: 81,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 22, 2014',
 		weight: 209.8,
@@ -126,7 +128,7 @@ HealthApp.healthdata = [
 		bpdia: 97,
 		heartrate: 67,
 		workedout: 'no'
-    },
+	},
 	{
 		date: 'Apr 23, 2014',
 		weight: 208.4,
@@ -134,7 +136,7 @@ HealthApp.healthdata = [
 		bpdia: 97,
 		heartrate: 70,
 		workedout: 'no'
-    },
+	},
 	{
 		date: 'Apr 24, 2014',
 		weight: 206.8,
@@ -142,7 +144,7 @@ HealthApp.healthdata = [
 		bpdia: 92,
 		heartrate: 98,
 		workedout: 'yes'
-    },
+	},
 	{
 		date: 'Apr 25, 2014',
 		weight: 207.4,
@@ -150,5 +152,5 @@ HealthApp.healthdata = [
 		bpdia: 96,
 		heartrate: 84,
 		workedout: 'yes'
-    }
-];
+	}]
+});

@@ -1,56 +1,55 @@
-HealthApp.dropboxConnector = (function(healthdata, dropbox) {
+HealthApp.dropboxConnector = function(healthdata, dropbox)
+{
 	'use strict';
 
 	var module = {},
-		client;
+		client = new dropbox.Client(
+		{
+			key: 'lp5b4gpd7jc2z47',
+			secret: 'g8i959uzvy6qfwi',
+			uid: 508841
+		});
 
-	module.init = function() {
-		getClient();
-		authenticatUser();
-	};
-
-	module.addRecord = function(record) {
+	module.addRecord = function(record)
+	{
 		var dsm = client.getDatastoreManager();
 
-		dsm.openDefaultDatastore(function(error, datastore) {
-			if (error) {
+		dsm.openDefaultDatastore(function(error, datastore)
+		{
+			if (error)
+			{
 				alert('Error opening data store: ' + error);
 				return;
 			}
 
 			var healthTable = datastore.getTable('health');
-			healthTable.insert(record);
-			console.dir(healthTable.query());
+			// healthTable.insert(record);
+			// console.dir(healthTable.query()[0]);
+			var xxx = healthTable.query()[0].getFields();
+			console.dir(xxx);
+
 		});
 
-		dsm.listDatastores(function(error, datastores) {
-			console.dir(datastores);
+		dsm.listDatastores(function(error, datastores)
+		{
+			// console.dir(datastores);
 		});
 
 		dsm.close();
 	};
 
-	function getClient() {
-		if (!client) {
-			console.log('creating client');
-			client = new dropbox.Client({
-				key: 'lp5b4gpd7jc2z47',
-				secret: 'g8i959uzvy6qfwi',
-				uid: 508841
-			});
-		}
-		else {
-			console.log('client created already');
-		}
-	}
-
-	function authenticatUser() {
-		if (!client.isAuthenticated()) {
-			client.authenticate({
+	function authenticatUser()
+	{
+		if (!client.isAuthenticated())
+		{
+			client.authenticate(
+				{
 					interactive: false
 				},
-				function(error) {
-					if (error) {
+				function(error)
+				{
+					if (error)
+					{
 						alert('Authentication error: ' + error);
 					}
 				}
@@ -58,8 +57,13 @@ HealthApp.dropboxConnector = (function(healthdata, dropbox) {
 		}
 	}
 
+	authenticatUser();
+
 	return module;
-}(
-	HealthApp.healthdata,
-	Dropbox
-));
+};
+
+define([
+		'healthdata',
+		'dropbox'
+	],
+	HealthApp.dropboxConnector);
