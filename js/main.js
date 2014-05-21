@@ -1,24 +1,6 @@
-require.config(
-{
-	paths:
-	{
-		'dropbox': 'https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest'
-	},
-	shim:
-	{
-		'dropbox':
-		{
-			exports: 'Dropbox'
-		}
-	}
-});
-
+/*
 var HealthApp = {};
 
-/**
- * [Main description]
- * @param {HealthApp.dropboxConnector} dbc The dropbox connector module.
- */
 HealthApp.Main = function(dbc)
 {
 	// dbc.init();
@@ -30,3 +12,27 @@ require(
 		'dropboxConnector'
 	],
 	HealthApp.Main);
+*/
+
+module(['gitstatus', 'connector/dropbox'], function(gitstatus, dbc)
+{
+	if (!gitstatus)
+	{
+		console.dir('gitstatus not loaded - you need to do a call/apply');
+	}
+	else
+	{
+		console.dir('success!');
+        gitstatus.requestGitStatus();
+	}
+
+	if (dbc)
+	{
+		console.log('hooray for dbc');
+		console.log(dbc);
+	}
+	else
+	{
+		console.log('no dbc');
+	}
+});

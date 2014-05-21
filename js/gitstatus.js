@@ -1,4 +1,4 @@
-var GitStatus = function(dbc)
+module(function()
 {
 	'use strict';
 
@@ -26,7 +26,7 @@ var GitStatus = function(dbc)
 		setInterval(requestGitStatus, 60000);
 	};
 
-	function requestGitStatus()
+	model.requestGitStatus = function()
 	{
 		var scr = document.querySelector('#get-request-status');
 
@@ -37,14 +37,13 @@ var GitStatus = function(dbc)
 
 		scr = document.createElement('script');
 		scr.id = 'get-request-status';
-		scr.src = 'https://status.github.com/api/last-message.json?callback=HealthApp.GitStatus.update';
+		scr.src = 'https://status.github.com/api/last-message.json?callback=GitStatus.update';
 
 		document.body.appendChild(scr);
-	}
+	};
 
-	window.addEventListener('load', requestGitStatus);
+	// window.addEventListener('load', requestGitStatus);
+	console.warn('Uncomment to run check git status.');
 
 	return model;
-};
-
-define(['dropboxconnector'], GitStatus);
+});

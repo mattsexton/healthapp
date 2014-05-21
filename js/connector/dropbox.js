@@ -1,3 +1,18 @@
+module(['gitstatus'], function(gs)
+{
+	var model = {};
+
+	model.test = function()
+	{
+		console.log('w00t');
+	};
+
+	console.dir(gs ? 'gs is true' : 'gs is false');
+
+	return model;
+});
+
+/*
 HealthApp.dropboxConnector = function(healthdata, dropbox)
 {
 	'use strict';
@@ -61,9 +76,4 @@ HealthApp.dropboxConnector = function(healthdata, dropbox)
 
 	return module;
 };
-
-define([
-		'healthdata',
-		'dropbox'
-	],
-	HealthApp.dropboxConnector);
+*/
