@@ -1,0 +1,82 @@
+// out: ../css/core.css, compress: false
+
+@light-gray: rgb(120,120,120);
+
+.template-view
+{
+    // width: 200px;
+
+    .chart
+    {
+        width: 250px;
+        height: 250px;
+        border: 1px solid @light-gray;
+        box-shadow: 10px 10px 5px @light-gray;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        line, polyline
+        {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        line
+        {
+            stroke-width: .25px;
+            // -webkit-animation: animate-dash-offset 1s ease forwards;
+            -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+        }
+
+        polyline
+        {
+            stroke-width: 0;
+            // -webkit-animation: animate-stroke-width 1s ease forwards;
+            -webkit-animation: animate-stroke-width 3s ease alternate infinite;
+        }
+
+        .bar
+        {
+            stroke: transparent;
+            stroke-width: 5px;
+
+            .inner-bar
+            {
+                stroke: hsl(204, 80%, 23%);
+                // stroke-width: .25px;
+            }
+
+            &:hover .inner-bar
+            {
+                stroke-width: 5px;
+            }
+        }
+
+        .data-points
+        {
+            stroke:green;
+            fill:none;
+        }
+
+        .best-fit
+        {
+            stroke: black;
+        }
+    }
+}
+
+@-webkit-keyframes animate-dash-offset
+{
+    100%
+    {
+        stroke-dashoffset: 0;
+    }
+}
+
+@-webkit-keyframes animate-stroke-width
+{
+    100%
+    {
+        stroke-width: .5px;
+    }
+}

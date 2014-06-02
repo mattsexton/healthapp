@@ -1,23 +1,18 @@
-module(['gitstatus'], function(gs)
+module.external.push(
 {
-	var model = {};
-
-	model.test = function()
-	{
-		console.log('w00t');
-	};
-
-	console.dir(gs ? 'gs is true' : 'gs is false');
-
-	return model;
+	name: 'dropbox-datastore',
+	// url: 'https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js',
+	url: '/js/external/dropbox-datastores-1.0-latest.js',
+	map: 'Dropbox'
 });
 
-/*
-HealthApp.dropboxConnector = function(healthdata, dropbox)
+module(['dropbox-datastore'], function(dropbox)
 {
 	'use strict';
 
-	var module = {},
+	var model = {},
+		healthTable = null,
+		dataStoreManager = null,
 		client = new dropbox.Client(
 		{
 			key: 'lp5b4gpd7jc2z47',
@@ -25,33 +20,55 @@ HealthApp.dropboxConnector = function(healthdata, dropbox)
 			uid: 508841
 		});
 
-	module.addRecord = function(record)
-	{
-		var dsm = client.getDatastoreManager();
+	model.addRecord = function(record) {};
 
-		dsm.openDefaultDatastore(function(error, datastore)
+	model.getRecords = function(callback)
+	{
+		isFunction(callback);
+
+		if (!healthTable)
+		{
+			getHealthTable(model.getRecords, callback);
+		}
+		else
+		{
+			callback(healthTable.query());
+		}
+	};
+
+	function getDatastoreManager()
+	{
+		if (!dataStoreManager)
+		{
+			dataStoreManager = client.getDatastoreManager();
+		}
+	}
+
+	function getHealthTable(caller, callback)
+	{
+		isFunction(caller);
+		isFunction(callback);
+
+		if (!dataStoreManager)
+		{
+			getDatastoreManager();
+		}
+
+		dataStoreManager.openDefaultDatastore(function(error, datastore)
 		{
 			if (error)
 			{
-				alert('Error opening data store: ' + error);
-				return;
+				throw 'Error opening data store: ' + error;
 			}
 
-			var healthTable = datastore.getTable('health');
-			// healthTable.insert(record);
-			// console.dir(healthTable.query()[0]);
-			var xxx = healthTable.query()[0].getFields();
-			console.dir(xxx);
+			healthTable = datastore.getTable('health');
 
+			if (callback)
+			{
+				caller(callback);
+			}
 		});
-
-		dsm.listDatastores(function(error, datastores)
-		{
-			// console.dir(datastores);
-		});
-
-		dsm.close();
-	};
+	}
 
 	function authenticatUser()
 	{
@@ -59,21 +76,34 @@ HealthApp.dropboxConnector = function(healthdata, dropbox)
 		{
 			client.authenticate(
 				{
-					interactive: false
+					// interactive: false
 				},
-				function(error)
+				function(authError, authClient)
 				{
-					if (error)
+					if (authClient)
 					{
-						alert('Authentication error: ' + error);
+						// client = authClient;
+					}
+					else if (authError)
+					{
+						alert('Authentication error: ' + authError);
 					}
 				}
 			);
 		}
 	}
 
+	function isFunction(item)
+	{
+		if (!item && Object.prototype.toString.call(item) !== '[object Function]')
+		{
+			throw 'Argument Error: item does not exist or is not a function.';
+		}
+
+		return true;
+	}
+
 	authenticatUser();
 
-	return module;
-};
-*/
+	return model;
+});

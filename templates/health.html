@@ -1,0 +1,53 @@
+<div class="chart">
+    <svg id="chart-bp"
+    height="100%"
+    width="{{svgData.graphWidth}}px"
+    viewbox="0 0 {{svgData.graphWidth}} {{svgData.graphHeight}}"
+    preserveaspectratio="xMinYMin slice"
+    xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+        <pattern id="smallGrid" width="{{svgData.smallGrid}}" height="{{svgData.smallGrid}}" patternunits="userSpaceOnUse">
+            <path d="M {{svgData.smallGrid}} 0 L 0 0 0 {{svgData.smallGrid}}" fill="none" stroke="rgba(51,51,51,.1)" stroke-width="0.5" />
+        </pattern>
+        <pattern id="bigGrid" width="{{svgData.bigGrid}}" height="{{svgData.bigGrid}}" patternunits="userSpaceOnUse">
+            <rect width="{{svgData.bigGrid}}" height="{{svgData.bigGrid}}" fill="url(#smallGrid)" />
+            <path d="M {{svgData.bigGrid}} 0 L 0 0 0 {{svgData.bigGrid}}" fill="none" stroke="rgba(51,51,51,.25)" stroke-width="0.5" />
+        </pattern>
+    </defs>
+
+    <rect width="100%" height="100%" fill="url(#bigGrid)" />
+
+    {{#each barData}}
+    <g class="bar">
+        <line class="inner-bar"
+        y1="{{min}}" x1="{{x}}"
+        y2="{{max}}" x2="{{x}}"
+        stroke-dashoffset="{{height}}" stroke-dasharray="{{height}}" />
+    </g>
+    {{/each}}
+
+    <!-- Need to get the actual line length -->
+    <polyline class="data-points"
+    points="{{points}}" />
+    <!-- stroke-dashoffset="300" stroke-dasharray="300" /> -->
+
+    <polyline class="data-points"
+    points="{{pointsB}}" />
+    <!-- stroke-dashoffset="300" stroke-dasharray="300" /> -->
+
+    {{#with bpSysTrendLine}}
+    <line class="best-fit"
+    y1="{{avgA}}" x1="{{start}}"
+    y2="{{avgB}}" x2="{{end}}"
+    stroke-dashoffset="{{length}}" stroke-dasharray="{{length}}" />
+    {{/with}}
+
+    {{#with bpDiaTrendLine}}
+    <line class="best-fit"
+    y1="{{avgA}}" x1="{{start}}"
+    y2="{{avgB}}" x2="{{end}}"
+    stroke-dashoffset="{{length}}" stroke-dasharray="{{length}}" />
+    {{/with}}
+</svg>
+</div>

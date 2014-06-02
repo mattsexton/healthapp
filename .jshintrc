@@ -124,5 +124,5 @@
     // "{true}":     "Windows Scripting Host",
     "wsh":           false,
     // "{true}":     "Yahoo User Interface",
-    "yui":           false,
+    "yui":           false
 }

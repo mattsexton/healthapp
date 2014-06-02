@@ -1,4 +1,4 @@
-module(function()
+module(function ()
 {
 	'use strict';
 
@@ -8,7 +8,7 @@ module(function()
 	 * Updates the status of GIT
 	 * @param  {Object} data The last message from the GIT status endpoint.
 	 */
-	model.update = function(data)
+	model.update = function (data)
 	{
 		var gs = document.querySelector('#gitstatus');
 
@@ -26,7 +26,7 @@ module(function()
 		setInterval(requestGitStatus, 60000);
 	};
 
-	model.requestGitStatus = function()
+	model.requestGitStatus = function ()
 	{
 		var scr = document.querySelector('#get-request-status');
 
@@ -40,6 +40,11 @@ module(function()
 		scr.src = 'https://status.github.com/api/last-message.json?callback=GitStatus.update';
 
 		document.body.appendChild(scr);
+	};
+
+	model.test = function ()
+	{
+		console.log('gitstatus test function is working');
 	};
 
 	// window.addEventListener('load', requestGitStatus);
