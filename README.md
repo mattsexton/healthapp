@@ -1,4 +1,4 @@
 healthapp
 =========
 
-This is currently under slow, but active, development
+This is currently under slow, but active, development.
