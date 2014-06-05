@@ -24,7 +24,7 @@ module(['dropbox-datastore'], function(dropbox)
 
 	model.getRecords = function(callback)
 	{
-		isFunction(callback);
+		utils.isFunction(callback);
 
 		if (!healthTable)
 		{
@@ -46,8 +46,8 @@ module(['dropbox-datastore'], function(dropbox)
 
 	function getHealthTable(caller, callback)
 	{
-		isFunction(caller);
-		isFunction(callback);
+		utils.isFunction(caller);
+		utils.isFunction(callback);
 
 		if (!dataStoreManager)
 		{
@@ -68,6 +68,8 @@ module(['dropbox-datastore'], function(dropbox)
 				caller(callback);
 			}
 		});
+
+		dataStoreManager.close();
 	}
 
 	function authenticatUser()
@@ -91,16 +93,6 @@ module(['dropbox-datastore'], function(dropbox)
 				}
 			);
 		}
-	}
-
-	function isFunction(item)
-	{
-		if (!item && Object.prototype.toString.call(item) !== '[object Function]')
-		{
-			throw 'Argument Error: item does not exist or is not a function.';
-		}
-
-		return true;
 	}
 
 	authenticatUser();

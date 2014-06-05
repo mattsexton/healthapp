@@ -1,1 +1,65 @@
-.template-view .chart{width:250px;height:250px;border:1px solid #787878;box-shadow:10px 10px 5px #787878;overflow-x:auto;overflow-y:hidden}.template-view .chart line,.template-view .chart polyline{stroke-linecap:round;stroke-linejoin:round}.template-view .chart line{stroke-width:.25px;-webkit-animation:animate-dash-offset 1s ease alternate infinite}.template-view .chart polyline{stroke-width:0;-webkit-animation:animate-stroke-width 3s ease alternate infinite}.template-view .chart .bar{stroke:transparent;stroke-width:5px}.template-view .chart .bar .inner-bar{stroke:#0c446a}.template-view .chart .bar:hover .inner-bar{stroke-width:5px}.template-view .chart .data-points{stroke:green;fill:none}.template-view .chart .best-fit{stroke:black}@-webkit-keyframes animate-dash-offset{100%{stroke-dashoffset:0}}@-webkit-keyframes animate-stroke-width{100%{stroke-width:.5px}}
+.template-view .chart {
+  width: 250px;
+  height: 250px;
+  border: 1px solid #787878;
+  box-shadow: 10px 10px 5px #787878;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.template-view .chart .chart-y-axis {
+  width: 25px;
+  height: 250px;
+  position: absolute;
+}
+.template-view .chart .chart-y-axis .background-fill {
+  fill: #ffffff;
+}
+.template-view .chart .bar .inner-bar {
+  -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+  stroke: #0c446a;
+  stroke-width: .25px;
+}
+.template-view .chart .bar:hover .inner-bar {
+  stroke-width: 5px;
+}
+.template-view .chart .data-points {
+  -webkit-animation: animate-stroke-width 3s ease alternate infinite;
+  stroke: green;
+  stroke-width: 0;
+  fill: none;
+}
+.template-view .chart .best-fit {
+  -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+  stroke-width: .25px;
+  stroke: black;
+}
+.template-view .chart .major-line {
+  stroke: rgba(0, 0, 0, 0.15);
+  stroke-width: .5px;
+}
+.template-view .chart .minor-line {
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: .25px;
+}
+.template-view .chart .color-band.green {
+  fill: rgba(0, 255, 0, 0.15);
+}
+.template-view .chart .color-band.yellow {
+  fill: rgba(255, 255, 0, 0.15);
+}
+.template-view .chart .color-band.orange {
+  fill: rgba(255, 174, 0, 0.15);
+}
+.template-view .chart .color-band.red {
+  fill: rgba(255, 0, 0, 0.15);
+}
+@-webkit-keyframes animate-dash-offset {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes animate-stroke-width {
+  100% {
+    stroke-width: .5px;
+  }
+}

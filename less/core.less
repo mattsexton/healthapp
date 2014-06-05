@@ -1,11 +1,9 @@
-// out: ../css/core.css, compress: false
+// out: ../css/core.css
 
-@light-gray: rgb(120,120,120);
+@light-gray: rgba(120,120,120,1);
 
 .template-view
 {
-    // width: 200px;
-
     .chart
     {
         width: 250px;
@@ -15,35 +13,26 @@
         overflow-x: auto;
         overflow-y: hidden;
 
-        line, polyline
+        .chart-y-axis
         {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+            width: 25px;
+            height: 250px;
+            position:absolute;
 
-        line
-        {
-            stroke-width: .25px;
-            // -webkit-animation: animate-dash-offset 1s ease forwards;
-            -webkit-animation: animate-dash-offset 1s ease alternate infinite;
-        }
-
-        polyline
-        {
-            stroke-width: 0;
-            // -webkit-animation: animate-stroke-width 1s ease forwards;
-            -webkit-animation: animate-stroke-width 3s ease alternate infinite;
+            .background-fill
+            {
+                fill: rgba(255,255,255,1);
+            }
         }
 
         .bar
         {
-            stroke: transparent;
-            stroke-width: 5px;
-
             .inner-bar
             {
+                // -webkit-animation: animate-dash-offset 1s ease forwards;
+                -webkit-animation: animate-dash-offset 1s ease alternate infinite;
                 stroke: hsl(204, 80%, 23%);
-                // stroke-width: .25px;
+                stroke-width: .25px;
             }
 
             &:hover .inner-bar
@@ -54,13 +43,53 @@
 
         .data-points
         {
+            // -webkit-animation: animate-stroke-width 1s ease forwards;
+            -webkit-animation: animate-stroke-width 3s ease alternate infinite;
             stroke:green;
+            stroke-width: 0;
             fill:none;
         }
 
         .best-fit
         {
+            -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+            stroke-width: .25px;
             stroke: black;
+        }
+
+        .major-line
+        {
+            stroke: hsla(0, 0%, 0%, 0.15);
+            stroke-width: .5px;
+        }
+
+        .minor-line
+        {
+            stroke: hsla(0, 0%, 0%, 0.1);
+            stroke-width: .25px;
+        }
+
+        .color-band
+        {
+            &.green
+            {
+                fill: rgba(0, 255, 0, 0.15);
+            }
+
+            &.yellow
+            {
+                fill: rgba(255, 255, 0, 0.15);
+            }
+
+            &.orange
+            {
+                fill: rgba(255, 174, 0, 0.15);
+            }
+
+            &.red
+            {
+                fill: rgba(255, 0, 0, 0.15);
+            }
         }
     }
 }

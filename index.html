@@ -12,6 +12,31 @@
         <div id="health-data"></div>
     </main>
     <footer>
+        <svg height="0" width="0">
+            <defs>
+                <pattern id="minor-value-line" width="100%" height="100%" patternunits="userSpaceOnUse">
+                    <line class="minor-line" x1="0" y1="0" x2="1" y2="0" />
+                </pattern>
+                <pattern id="major-value-line" width="100%" height="100%" patternunits="userSpaceOnUse">
+                    <rect width="1" height="100%" fill="url(#minor-value-line)" />
+                    <line class="major-line" x1="0" y1="0" x2="100%" y2="0" />
+                </pattern>
+
+                <pattern id="pattern-testing" patternunits="userSpaceOnUse">
+                    <rect id="testing" fill="lightblue" stroke="lightred" stroke-width="1" height="10" width="10" />
+                </pattern>
+
+
+
+
+                <pattern id="pattern1" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
+                    <circle cx="2.5" cy="2.5" r="2.5" style="stroke: none; fill: #0000ff" />
+                </pattern>
+
+                <rect id="use-test" fill="url(#pattern1)" height="50" width="50" />
+            </defs>
+        </svg>
+
         <div id="templates"></div>
         <script src="js/module.manager.js" type="text/javascript" charset="utf-8" data-init="main"></script>
     </footer>

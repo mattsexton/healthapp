@@ -1,4 +1,46 @@
-var module = (function()
+var utils = (function()
+{
+	'use strict';
+
+	var model = {};
+
+	function isOfType(obj, type)
+	{
+		var ofType = '[object ' + type.toLowerCase() + ']',
+			isType = Object.prototype.toString.call(obj).toLowerCase();
+
+		return isType === ofType;
+	}
+
+	model.isArray = function(obj)
+	{
+		return isOfType(obj, 'Array');
+	};
+
+	model.isFunction = function(obj)
+	{
+		return isOfType(obj, 'Function');
+	};
+
+	model.isNumber = function(obj)
+	{
+		return isOfType(obj, 'Number');
+	};
+
+	model.isObject = function(obj)
+	{
+		return isOfType(obj, 'Object');
+	};
+
+	model.isString = function(obj)
+	{
+		return isOfType(obj, 'String');
+	};
+
+	return model;
+})();
+
+var module = (function(model)
 {
 	'use strict';
 
@@ -8,45 +50,51 @@ var module = (function()
 		extdeps = [],
 		pendingModules = {},
 		modManagerName = 'module.manager.js',
-		modManagerElement = document.querySelector('script[src$="' + modManagerName + '"]'),
-		model = function(dependancies, newmodule)
+		modManagerElement = document.querySelector('script[src$="' + modManagerName + '"]');
+
+	model = function(dependancies, newmodule)
+	{
+		var name = getCurrentScript(),
+			mod = getModule(name);
+
+		if (mod && mod.item)
 		{
-			var name = getCurrentScript(),
-				module = getModule(name);
+			throw 'A script with this name has already been defined';
+		}
 
-			if (isArray(dependancies) && isFunction(newmodule))
+		if (utils.isArray(dependancies) && utils.isFunction(newmodule))
+		{
+			pendingModules[name] = {
+				item: newmodule,
+				dependancies: dependancies
+			};
+
+			if (!dependancies.every(dependanciesLoaded))
 			{
-				pendingModules[name] = {
-					item: newmodule,
-					dependancies: dependancies
-				};
+				document.addEventListener(name + 'dependancyLoaded', dependancyLoadedEvent, false);
 
-				if (!dependancies.every(dependanciesLoaded))
+				dependancies.forEach(function(value)
 				{
-					document.addEventListener(name + 'dependancyLoaded', dependancyLoadedEvent, false);
-
-					dependancies.forEach(function(value)
-					{
-						loadScript(value, name);
-					});
-				}
-				else
-				{
-					callModule(newmodule);
-				}
-			}
-			else if (isFunction(dependancies))
-			{
-				pendingModules[name] = {
-					item: dependancies,
-					dependancies: null
-				};
+					loadScript(value, name);
+				});
 			}
 			else
 			{
-				throw 'Incorrect argument format';
+				callModule(newmodule);
 			}
-		};
+		}
+		else if (utils.isFunction(dependancies))
+		{
+			pendingModules[name] = {
+				item: dependancies,
+				dependancies: null
+			};
+		}
+		else
+		{
+			throw 'Incorrect argument format';
+		}
+	};
 
 	Object.defineProperties(model,
 	{
@@ -236,11 +284,11 @@ var module = (function()
 		{
 			if (isDependancyExternal(value))
 			{
-				return isObject(mod.item) || isFunction(mod.item);
+				return utils.isObject(mod.item) || utils.isFunction(mod.item);
 			}
 			else
 			{
-				return isObject(mod.item);
+				return utils.isObject(mod.item);
 			}
 		}
 	}
@@ -299,35 +347,11 @@ var module = (function()
 		return obj[0];
 	}
 
-	function isOfType(obj, type)
-	{
-		return obj && Object.prototype.toString.call(obj) === '[object ' + type + ']';
-	}
-
-	function isArray(obj)
-	{
-		return isOfType(obj, 'Array');
-	}
-
-	function isFunction(obj)
-	{
-		return isOfType(obj, 'Function');
-	}
-
-	function isObject(obj)
-	{
-		return isOfType(obj, 'Object');
-	}
-
-	function isString(obj)
-	{
-		return isOfType(obj, 'String');
-	}
-
-	if (isString(modManagerElement.dataset.init))
+	if (utils.isString(modManagerElement.dataset.init))
 	{
 		loadScript(modManagerElement.dataset.init);
 	}
 
 	return model;
-}());
+})(module ||
+{});
