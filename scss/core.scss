@@ -1,0 +1,147 @@
+@charset 'UTF-8';
+
+@import '_core.colors.scss';
+
+body
+{
+    font-family: 'Helvetica Neue';
+    font-size: 10pt;
+}
+
+.template-view
+{
+    .chart
+    {
+        width: 250px;
+        height: 275px;
+        border: 1px solid $light-gray;
+        box-shadow: 10px 10px 5px $light-gray;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        .major-line
+        {
+            stroke: $trans-black-a;
+            stroke-width: .5px;
+        }
+
+        .minor-line
+        {
+            stroke: $trans-black-b;
+            stroke-width: .5px;
+        }
+
+        .chart-x-axis
+        {
+            .tic-mark
+            {
+                .tic-mark-line
+                {
+                    stroke: $black;
+                    stroke-width: .15;
+                }
+
+                .tic-mark-text
+                {
+                    font-size: .5rem;
+                    writing-mode: tb;
+                    glyph-orientation-vertical: 90;
+                }
+            }
+        }
+
+        .chart-y-axis
+        {
+            width: 25px;
+            height: 250px;
+            position: absolute;
+
+            .background-fill
+            {
+                fill: $white;
+            }
+        }
+
+        .bar
+        {
+            .inner-bar
+            {
+                -webkit-animation: animate-dash-offset 4s ease forwards;
+                // stroke: $fruit-salad //hsl(204, 80%, 23%);
+                // stroke: hsla(204, 80%, 23%, 1);
+                stroke: hsl(204, 80%, 23%);
+                stroke-width: 1px;
+            }
+
+            &:hover .inner-bar
+            {
+                stroke-width: 5px;
+            }
+        }
+
+        .data-points
+        {
+            .data-points-line
+            {
+                -webkit-animation: animate-dash-offset 3s ease-in 1 forwards;
+                stroke: rgba(15, 90, 0, 1);
+                stroke-width: 2;
+                fill: none;
+                filter: url(#line-light);
+            }
+
+            .data-points-blip
+            {
+                stroke: rgba(255, 255, 0, 1);
+            }
+        }
+
+        .best-fit
+        {
+            // -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+            -webkit-animation: animate-dash-offset 1s ease 3s forwards;
+            stroke-width: .25px;
+            stroke: black;
+        }
+
+        .color-band
+        {
+            &.green
+            {
+                fill: rgba(0, 255, 0, 0.15);
+            }
+
+            &.yellow
+            {
+                fill: rgba(255, 255, 0, 0.15);
+            }
+
+            &.orange
+            {
+                fill: rgba(255, 174, 0, 0.15);
+            }
+
+            &.red
+            {
+                fill: rgba(255, 0, 0, 0.15);
+            }
+        }
+    }
+}
+
+@-webkit-keyframes animate-dash-offset
+{
+    100%
+    {
+        stroke-dashoffset: 0px;
+    }
+}
+
+
+@-webkit-keyframes animate-stroke-width
+{
+    100%
+    {
+        stroke-width: 1px;
+    }
+}

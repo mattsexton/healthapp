@@ -1,10 +1,42 @@
+/*!
+ * HealthApp
+ * Matt's Health App
+ * A health app to rule them all
+ * https://github.com/mattsexton/healthapp
+ * @author Matt Sexton
+ * @version 0.0.0
+ * Copyright . MIT licensed.
+ */
+
+body {
+  font-family: 'Helvetica Neue';
+  font-size: 10pt;
+}
+
 .template-view .chart {
   width: 250px;
-  height: 250px;
+  height: 275px;
   border: 1px solid #787878;
   box-shadow: 10px 10px 5px #787878;
   overflow-x: auto;
   overflow-y: hidden;
+}
+.template-view .chart .major-line {
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: .5px;
+}
+.template-view .chart .minor-line {
+  stroke: rgba(0, 0, 0, 0.05);
+  stroke-width: .5px;
+}
+.template-view .chart .chart-x-axis .tic-mark .tic-mark-line {
+  stroke: black;
+  stroke-width: .15;
+}
+.template-view .chart .chart-x-axis .tic-mark .tic-mark-text {
+  font-size: .5rem;
+  writing-mode: tb;
+  glyph-orientation-vertical: 90;
 }
 .template-view .chart .chart-y-axis {
   width: 25px;
@@ -12,34 +44,30 @@
   position: absolute;
 }
 .template-view .chart .chart-y-axis .background-fill {
-  fill: #ffffff;
+  fill: white;
 }
 .template-view .chart .bar .inner-bar {
-  -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+  -webkit-animation: animate-dash-offset 4s ease forwards;
   stroke: #0c446a;
-  stroke-width: .25px;
+  stroke-width: 1px;
 }
 .template-view .chart .bar:hover .inner-bar {
   stroke-width: 5px;
 }
-.template-view .chart .data-points {
-  -webkit-animation: animate-stroke-width 3s ease alternate infinite;
-  stroke: green;
-  stroke-width: 0;
+.template-view .chart .data-points .data-points-line {
+  -webkit-animation: animate-dash-offset 3s ease-in 1 forwards;
+  stroke: #0f5a00;
+  stroke-width: 2;
   fill: none;
+  filter: url(#line-light);
+}
+.template-view .chart .data-points .data-points-blip {
+  stroke: yellow;
 }
 .template-view .chart .best-fit {
-  -webkit-animation: animate-dash-offset 1s ease alternate infinite;
+  -webkit-animation: animate-dash-offset 1s ease 3s forwards;
   stroke-width: .25px;
   stroke: black;
-}
-.template-view .chart .major-line {
-  stroke: rgba(0, 0, 0, 0.15);
-  stroke-width: .5px;
-}
-.template-view .chart .minor-line {
-  stroke: rgba(0, 0, 0, 0.1);
-  stroke-width: .25px;
 }
 .template-view .chart .color-band.green {
   fill: rgba(0, 255, 0, 0.15);
@@ -53,13 +81,14 @@
 .template-view .chart .color-band.red {
   fill: rgba(255, 0, 0, 0.15);
 }
+
 @-webkit-keyframes animate-dash-offset {
   100% {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 0px;
   }
 }
 @-webkit-keyframes animate-stroke-width {
   100% {
-    stroke-width: .5px;
+    stroke-width: 1px;
   }
 }

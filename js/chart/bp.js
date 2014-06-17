@@ -1,33 +1,47 @@
-module(['helpers/views'], function (views)
+module(['helpers/views'], function(views)
 {
 	'use strict';
 	var model = {};
 
-	var Chart = (function ()
+	var Chart = (function()
 	{
 		function chart(records, maxValue, minValue)
 		{
+			// TODO: Write a map function on the record set to convert the values to the new range? Might be useful?
 			this.records = records;
 
 			this.svgData = {
-				multiplier: 2,
-				offset: 0,
-				max: 100,
-				min: 0,
-				chartHeight: 250,
-				graphHeight: 100,
-				graphWidth: 0,
-				smallGrid: 2,
-				bigGrid: 20
+				// Fixed Values:
+				chartBodyHeight: 250,
+				chartBodyWidth: 250,
+				chartBodyOffset: 25,
+				chartXAxisHeight: 25,
+				chartYAxisWidth: 25,
+				multiplier: 5,
+				offset: 5,
+
+				// Calculated Values:
+				chartHeight: 0, // chartBodyHeight + chartXAxisHeight
+				chartWidth: 0, // chartBodyWidth  + chartYAxisWidth
+				graphHeight: 100, // the inverted value of min
+				max: 100, // Default is 100, max value of the record set based on maxValue
+				min: 0, // Default is 0, min value of the record set based on minValue
+
+				// Dynamic Values
+				chartXAxisTicMarks: [], // TODO: needs a better comment
+				chartYAxisTicMarks: [] // TODO: needs a better comment
 			};
+
+			var svgd = this.svgData,
+				recs = this.records;
 
 			if (utils.isNumber(maxValue))
 			{
-				this.svgData.max = maxValue;
+				svgd.max = maxValue;
 			}
 			else if (utils.isString(maxValue))
 			{
-				this.svgData.max = Math.max.apply(null, this.records.map(function (v)
+				svgd.max = Math.max.apply(null, recs.map(function(v)
 				{
 					return v.get(maxValue);
 				}));
@@ -35,48 +49,78 @@ module(['helpers/views'], function (views)
 
 			if (utils.isNumber(minValue))
 			{
-				this.svgData.min = minValue;
+				svgd.min = minValue;
 			}
 			else if (utils.isString(minValue))
 			{
-				this.svgData.min = Math.min.apply(null, this.records.map(function (v)
+				svgd.min = Math.min.apply(null, recs.map(function(v)
 				{
 					return v.get(minValue);
 				}));
 			}
 
-			this.svgData.graphHeight = this.invertPoint(this.svgData.min);
-
-			var twidth = Math.round(
-				(this.records.length * this.svgData.multiplier *
-					(this.svgData.chartHeight / this.svgData.graphHeight)) +
-				this.svgData.offset
-			);
-
-			this.svgData.graphWidth = twidth > this.svgData.chartHeight ? twidth : this.svgData.chartHeight;
-
-			this.svgData.smallGrid = this.svgData.graphHeight / 20;
-			this.svgData.bigGrid = this.svgData.smallGrid * 4;
+			svgd.graphHeight = this.mapInversePoint(svgd.min);
+			svgd.chartHeight = svgd.chartBodyHeight + svgd.chartXAxisHeight;
+			svgd.chartBodyWidth = (recs.length * svgd.multiplier) + svgd.offset;
+			svgd.chartWidth = svgd.chartBodyWidth + svgd.chartBodyOffset * 2;
 		}
 
 		function dataPoints(trendName)
 		{
-			var points = [];
+			var pp, pa, pb, px, pxx, py, pyy,
+				len = 0,
+				pth = [],
+				pts = [];
 
 			for (var i = 0; i < this.records.length; i += 1)
 			{
-				points.push(this.convertToCoordinate(i, this.invertPoint(this.records[i].get(trendName))));
+				px = i;
+				py = this.mapInversePoint(this.records[i].get(trendName));
+				pts.push(this.convertToCoordinate(px, py));
+
+				if (i > 0)
+				{
+					//Get the length of the line
+					pp = pts[i - 1];
+					pa = parseInt(pp.split(',')[0], 10);
+					pb = parseInt(pp.split(',')[1], 10);
+					// √|(x-a)²+(y-b)²|
+					len += Math.sqrt(Math.abs(Math.pow(px - pa, 2) + Math.pow(py - pb, 2)));
+				}
+
+				if (i === 0)
+				{
+					// Set the first path point, this establishes where the path starts
+					pth.push('M' + pts[px]);
+				}
+				else if (i === 1)
+				{
+					// The second point should be a quadratice bezier because we dont have enough points yet
+					pth.push('Q' + this.convertToCoordinate(0, py) + ' ' + pts[px]);
+				}
+				else
+				{
+					// All remaining points will be cubic beziers
+					pxx = i - 1;
+					pyy = this.mapInversePoint(this.records[pxx].get(trendName));
+					pth.push('C' + this.convertToCoordinate(px, pyy) + ' ' + this.convertToCoordinate(pxx, py) + ' ' + pts[px]);
+				}
 			}
 
-			return points;
+			return {
+				points: pts.join(' '),
+				path: pth.join(' '),
+				length: len / 2,
+				time: this.records.length / 2 //TODO: this needs to be an inverse relationship, the bigger the record set, the faster the time
+			};
 		}
 
 		function barData(maxValue, minValue)
 		{
 			var that = this,
-				max = 100,
+				max = this.svgData.max,
+				min = this.svgData.min,
 				maxIsKey = utils.isString(maxValue),
-				min = 0,
 				minIsKey = utils.isString(minValue);
 
 			if (utils.isNumber(maxValue) || maxIsKey)
@@ -89,19 +133,32 @@ module(['helpers/views'], function (views)
 				min = minValue;
 			}
 
-			return this.records.map(function (v, i)
+			return this.records.map(function(v, i)
 			{
 				var fields = v.getFields(),
 					fieldData = {},
 					top = maxIsKey ? fields[max] : max,
-					bottom = minIsKey ? fields[min] : min;
+					bottom = minIsKey ? fields[min] : min,
+					pt = that.convertToCoordinate(i),
+					xa = that.mapInversePoint(top),
+					xb = that.mapInversePoint(bottom);
 
 				fieldData = {
-					height: top - bottom,
-					max: that.invertPoint(top),
-					min: that.invertPoint(bottom),
-					point: that.convertToCoordinate(i)
+					height: xb - xa,
+					max: xa,
+					min: xb,
+					point: pt
 				};
+
+				if (i % 5 === 0 || i === (that.records.length - 1))
+				{
+					var tic = {
+						x: pt,
+						text: fields.date.getMonth() + '/' + fields.date.getDate()
+					};
+
+					that.svgData.chartXAxisTicMarks.push(tic);
+				}
 
 				return fieldData;
 			});
@@ -131,8 +188,8 @@ module(['helpers/views'], function (views)
 
 			for (i; i < recordsHalf; i += 1)
 			{
-				trendLine.avgA += this.invertPoint(this.records[i].get(trendName));
-				trendLine.avgB += this.invertPoint(this.records[i + recordsHalf].get(trendName));
+				trendLine.avgA += this.mapInversePoint(this.records[i].get(trendName));
+				trendLine.avgB += this.mapInversePoint(this.records[i + recordsHalf].get(trendName));
 			}
 
 			trendLine.avgA = Math.round(trendLine.avgA / recordsHalf);
@@ -152,18 +209,37 @@ module(['helpers/views'], function (views)
 		{
 			var band = {
 				className: className,
-				start: this.invertPoint(max)
+				start: this.mapInversePoint(max)
 			};
 
-			band.height = this.invertPoint(min) - band.start;
+			band.height = this.mapInversePoint(min) - band.start;
 
 			return band;
 		}
 
-		function invertPoint(point)
+		function mapInversePoint(point)
 		{
-			return Math.round(((this.svgData.max - point) / this.svgData.max) * 100);
+			// new_value = (old_value - old_min) / (old_max - old_min) * (new_max - new_min) + new_min
+			var nmax = 0,
+				nmin = 100,
+				omin = this.svgData.min,
+				omax = this.svgData.max;
+
+			return Math.round(((point - omin) / (omax - omin) * (nmax - nmin)) + nmin);
 		}
+
+		// function remapPoint(point, oldMax, oldMin, newMax, newMin)
+		// {
+		// 	var val,
+		// 		omax = oldMax,
+		// 		omin = oldMin,
+		// 		nmax = newMax || 0,
+		// 		nmin = newMin || 100;
+		//
+		// 	// val = ((point - newMin)(oldmax - oldmin)/(newmax - newmin)) + oldmin
+		// 	val = ((point - nmin) * (omax - omin) / (nmax - nmin)) + omin;
+		// 	return val;
+		// }
 
 		function convertToCoordinate(point, value)
 		{
@@ -184,38 +260,40 @@ module(['helpers/views'], function (views)
 			createBarData: barData,
 			createTrendLine: trendLines,
 			createColorBand: colorBand,
-			invertPoint: invertPoint,
+			mapInversePoint: mapInversePoint,
 			convertToCoordinate: convertToCoordinate
 		};
 
 		return chart;
 	}());
 
-	model.showBloodPressure = function (records)
+	model.showBloodPressure = function(records)
 	{
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		records = records.concat(records);
-		records = records.concat(records);
-		records = records.concat(records);
-		records = records.concat(records);
+		// records = records.concat(records);
+		// records = records.concat(records);
+		// records = records.concat(records);
+		// records = records.concat(records);
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-		console.groupCollapsed('records');
-		records.forEach(function (v)
-		{
-			console.log(v);
-		});
-		console.groupEnd();
+		// console.groupCollapsed('records');
+		// records.forEach(function (v)
+		// {
+		// 	console.log(v.get('bpsys'));
+		// });
+		// console.groupEnd();
 
-		duelChart(records);
-		bpSysChart(records);
-		bpDiaChart(records);
+		duelChart(records, 'duel-chart');
+		bpSysChart(records, 'bpsys-chart');
+		bpDiaChart(records, 'bpdia-chart');
 	};
 
-	function duelChart(records)
+	function duelChart(records, id)
 	{
 		var chart = new Chart(records, 180, 60),
 			data = {
+				id: id,
 				barData: chart.createBarData('bpsys', 'bpdia'),
 				trendLines: [
 					chart.createTrendLine('bpsys'),
@@ -231,10 +309,11 @@ module(['helpers/views'], function (views)
 		views.getTemplate('health', showChart, data);
 	}
 
-	function bpSysChart(records)
+	function bpSysChart(records, id)
 	{
-		var chart = new Chart(records, 180, 90),
+		var chart = new Chart(records, 190, 80),
 			data = {
+				id: id,
 				barData: chart.createBarData('bpsys'),
 				trendLines: [
 					chart.createTrendLine('bpsys')
@@ -254,10 +333,11 @@ module(['helpers/views'], function (views)
 		views.getTemplate('health', showChart, data);
 	}
 
-	function bpDiaChart(records)
+	function bpDiaChart(records, id)
 	{
-		var chart = new Chart(records, 120, 60),
+		var chart = new Chart(records, 130, 50),
 			data = {
+				id: id,
 				barData: chart.createBarData('bpdia'),
 				trendLines: [
 					chart.createTrendLine('bpdia')

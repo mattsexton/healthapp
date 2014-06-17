@@ -184,6 +184,7 @@ var module = (function(model)
 
 		if (!module)
 		{
+			//TODO: eventually, this technique needs to ensure that items are cached
 			var scriptTag = document.createElement('script');
 
 			module = {
