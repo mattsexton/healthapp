@@ -70,6 +70,7 @@ module(['helpers/views'], function(views)
 			var pp, pa, pb, px, pxx, py, pyy,
 				len = 0,
 				pth = [],
+				pthend = [],
 				pts = [];
 
 			for (var i = 0; i < this.records.length; i += 1)
@@ -107,9 +108,14 @@ module(['helpers/views'], function(views)
 				}
 			}
 
+			pthend.push('L' + this.convertToCoordinate(this.records.length - 1, 100));
+			pthend.push('L' + this.convertToCoordinate(0, 100));
+			pthend.push('Z');
+
 			return {
 				points: pts.join(' '),
 				path: pth.join(' '),
+				pathend: pthend.join(' '),
 				length: len / 2,
 				time: this.records.length / 2 //TODO: this needs to be an inverse relationship, the bigger the record set, the faster the time
 			};
@@ -207,12 +213,15 @@ module(['helpers/views'], function(views)
 
 		function colorBand(max, min, className)
 		{
-			var band = {
+			var ymax = this.mapInversePoint(max),
+			ymin = this.mapInversePoint(min),
+			band = {
 				className: className,
-				start: this.mapInversePoint(max)
+				height: ymin - ymax,
+				width: this.svgData.chartBodyWidth - (this.svgData.offset * 2),
+				x: this.svgData.offset,
+				y: ymax
 			};
-
-			band.height = this.mapInversePoint(min) - band.start;
 
 			return band;
 		}
@@ -277,13 +286,7 @@ module(['helpers/views'], function(views)
 		// records = records.concat(records);
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-		// console.groupCollapsed('records');
-		// records.forEach(function (v)
-		// {
-		// 	console.log(v.get('bpsys'));
-		// });
-		// console.groupEnd();
-
+		// TODO: Need to ensure charts are loaded in the order they are called
 		duelChart(records, 'duel-chart');
 		bpSysChart(records, 'bpsys-chart');
 		bpDiaChart(records, 'bpdia-chart');

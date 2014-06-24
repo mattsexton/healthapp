@@ -13,6 +13,15 @@ body {
   font-size: 10pt;
 }
 
+#svg-defs .major-line {
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: .5px;
+}
+#svg-defs .minor-line {
+  stroke: rgba(0, 0, 0, 0.05);
+  stroke-width: .5px;
+}
+
 .template-view .chart {
   width: 250px;
   height: 275px;
@@ -20,14 +29,6 @@ body {
   box-shadow: 10px 10px 5px #787878;
   overflow-x: auto;
   overflow-y: hidden;
-}
-.template-view .chart .major-line {
-  stroke: rgba(0, 0, 0, 0.2);
-  stroke-width: .5px;
-}
-.template-view .chart .minor-line {
-  stroke: rgba(0, 0, 0, 0.05);
-  stroke-width: .5px;
 }
 .template-view .chart .chart-x-axis .tic-mark .tic-mark-line {
   stroke: black;
@@ -48,20 +49,27 @@ body {
 }
 .template-view .chart .bar .inner-bar {
   -webkit-animation: animate-dash-offset 4s ease forwards;
-  stroke: #0c446a;
+  stroke: #56a63c;
   stroke-width: 1px;
 }
 .template-view .chart .bar:hover .inner-bar {
   stroke-width: 5px;
 }
-.template-view .chart .data-points .data-points-line {
+.template-view .chart .data-points-line {
   -webkit-animation: animate-dash-offset 3s ease-in 1 forwards;
-  stroke: #0f5a00;
-  stroke-width: 2;
+  stroke: #56a63c;
+  stroke-width: 2px;
   fill: none;
   filter: url(#line-light);
 }
-.template-view .chart .data-points .data-points-blip {
+.template-view .chart .data-points-fill {
+  fill: rgba(86, 166, 60, 0.1);
+}
+.template-view .chart .data-points-blip {
+  fill: red;
+  stroke: none;
+}
+.template-view .chart .data-points-blip-line {
   stroke: yellow;
 }
 .template-view .chart .best-fit {
@@ -70,16 +78,16 @@ body {
   stroke: black;
 }
 .template-view .chart .color-band.green {
-  fill: rgba(0, 255, 0, 0.15);
+  fill: rgba(0, 255, 0, 0.05);
 }
 .template-view .chart .color-band.yellow {
-  fill: rgba(255, 255, 0, 0.15);
+  fill: rgba(255, 255, 0, 0.05);
 }
 .template-view .chart .color-band.orange {
-  fill: rgba(255, 174, 0, 0.15);
+  fill: rgba(255, 174, 0, 0.05);
 }
 .template-view .chart .color-band.red {
-  fill: rgba(255, 0, 0, 0.15);
+  fill: rgba(255, 0, 0, 0.05);
 }
 
 @-webkit-keyframes animate-dash-offset {

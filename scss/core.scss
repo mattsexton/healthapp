@@ -8,6 +8,21 @@ body
     font-size: 10pt;
 }
 
+#svg-defs
+{
+    .major-line
+    {
+        stroke: $trans-black-a;
+        stroke-width: .5px;
+    }
+
+    .minor-line
+    {
+        stroke: $trans-black-b;
+        stroke-width: .5px;
+    }
+}
+
 .template-view
 {
     .chart
@@ -18,18 +33,6 @@ body
         box-shadow: 10px 10px 5px $light-gray;
         overflow-x: auto;
         overflow-y: hidden;
-
-        .major-line
-        {
-            stroke: $trans-black-a;
-            stroke-width: .5px;
-        }
-
-        .minor-line
-        {
-            stroke: $trans-black-b;
-            stroke-width: .5px;
-        }
 
         .chart-x-axis
         {
@@ -67,9 +70,7 @@ body
             .inner-bar
             {
                 -webkit-animation: animate-dash-offset 4s ease forwards;
-                // stroke: $fruit-salad //hsl(204, 80%, 23%);
-                // stroke: hsla(204, 80%, 23%, 1);
-                stroke: hsl(204, 80%, 23%);
+                stroke: $fruit-salad;
                 stroke-width: 1px;
             }
 
@@ -79,22 +80,36 @@ body
             }
         }
 
-        .data-points
+        // .data-points
+        // {
+        .data-points-line
         {
-            .data-points-line
-            {
-                -webkit-animation: animate-dash-offset 3s ease-in 1 forwards;
-                stroke: rgba(15, 90, 0, 1);
-                stroke-width: 2;
-                fill: none;
-                filter: url(#line-light);
-            }
-
-            .data-points-blip
-            {
-                stroke: rgba(255, 255, 0, 1);
-            }
+            -webkit-animation: animate-dash-offset 3s ease-in 1 forwards;
+            stroke: $fruit-salad;
+            stroke-width: 2px;
+            fill: none;
+            filter: url(#line-light);
         }
+
+        .data-points-fill
+        {
+            fill: rgba($fruit-salad, 10/100);
+            // fill: rgba($fruit-salad, 100/100);
+            // fill: hsla(360, 0%, 100%, 1);
+        }
+
+        .data-points-blip
+        {
+            fill: red;
+            // fill: url(#blip-gradient);
+            stroke: none;
+        }
+
+        .data-points-blip-line
+        {
+            stroke: rgba(255, 255, 0, 1);
+        }
+        // }
 
         .best-fit
         {
@@ -108,22 +123,22 @@ body
         {
             &.green
             {
-                fill: rgba(0, 255, 0, 0.15);
+                fill: rgba(0, 255, 0, 0.05);
             }
 
             &.yellow
             {
-                fill: rgba(255, 255, 0, 0.15);
+                fill: rgba(255, 255, 0, 0.05);
             }
 
             &.orange
             {
-                fill: rgba(255, 174, 0, 0.15);
+                fill: rgba(255, 174, 0, 0.05);
             }
 
             &.red
             {
-                fill: rgba(255, 0, 0, 0.15);
+                fill: rgba(255, 0, 0, 0.05);
             }
         }
     }

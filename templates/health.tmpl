@@ -1,72 +1,48 @@
 <div id="{{id}}" class="chart">
-  <svg class="chart-y-axis"
-    width="{{svgData.chartYAxisWidth}}" height="{{svgData.chartBodyHeight}}"
-    viewbox="0 0 {{svgData.chartYAxisWidth}} {{svgData.graphHeight}}"
-    preserveaspectratio="none">
+	<svg class="chart-y-axis" width="{{svgData.chartYAxisWidth}}" height="{{svgData.chartBodyHeight}}" viewbox="0 0 {{svgData.chartYAxisWidth}} {{svgData.graphHeight}}" preserveaspectratio="none">
+		<rect class="background-fill" width="100%" height="100%" />
+		<rect width="100%" height="100%" fill="url(#horizontal-grid)" />
+	</svg>
 
-    <rect class="background-fill" width="100%" height="100%" />
-    <rect width="100%" height="100%" fill="url(#horizontal-grid)" />
-  </svg>
+	<svg width="{{svgData.chartWidth}}" height="{{svgData.chartHeight}}">
+		<svg class="chart-body" width="{{svgData.chartBodyWidth}}" height="{{svgData.chartBodyHeight}}" x="{{svgData.chartBodyOffset}}" y="0" viewbox="0 0 {{svgData.chartBodyWidth}} {{svgData.graphHeight}}" preserveaspectratio="none">
+			{{#each colorBands}}
+				<rect class="color-band {{this.className}}" width="{{this.width}}" height="{{this.height}}" x="{{this.x}}" y="{{this.y}}" />
+			{{/each}}
 
-  <svg width="{{svgData.chartWidth}}" height="{{svgData.chartHeight}}">
-    <svg class="chart-body"
-      width="{{svgData.chartBodyWidth}}" height="{{svgData.chartBodyHeight}}"
-      x="{{svgData.chartBodyOffset}}" y="0"
-      viewbox="0 0 {{svgData.chartBodyWidth}} {{svgData.graphHeight}}"
-      preserveaspectratio="none">
+			<rect width="100%" height="100%" fill="url(#horizontal-grid)" />
 
-      {{#each colorBands}}
-      <rect class="color-band {{this.className}}"
-        width="100%" height="{{this.height}}"
-        x="0" y="{{this.start}}" />
-      {{/each}}
+			{{#each barData}}
+				<g class="bar">
+					<line class="inner-bar" y1="{{min}}" x1="{{point}}" y2="{{max}}" x2="{{point}}" stroke-dashoffset="{{height}}" stroke-dasharray="{{height}}" />
+				</g>
+			{{/each}}
 
-      <rect width="100%" height="100%" fill="url(#horizontal-grid)" />
+			{{#each dataPoints}}
+				<defs>
+					<clipPath id="{{../id}}-{{@index}}-clip-path">
+						<path d="{{this.path}} {{this.pathend}}" />
+					</clipPath>
+				</defs>
 
-      {{#each barData}}
-      <g class="bar">
-        <line class="inner-bar"
-          y1="{{min}}" x1="{{point}}" y2="{{max}}" x2="{{point}}"
-          stroke-dashoffset="{{height}}" stroke-dasharray="{{height}}" />
-      </g>
-      {{/each}}
+				<rect class="data-points-fill" width="100%" height="100%" clip-path="url(#{{../id}}-{{@index}}-clip-path)" />
+				<path id="{{../id}}-{{@index}}-data-points-path" class="data-points-line" d="{{this.path}}" stroke-dashoffset="{{this.length}}" stroke-dasharray="{{this.length}}" />
+			{{/each}}
 
-      {{#each dataPoints}}
-      <g class="data-points">
-        <defs>
-          <mask id="{{../id}}-blip-mask" x="0" y="0" width="100%" height="100%">
-            <rect x="-5" y="-2.5" rx="5" ry="5" width="10" height="5" stroke="none" fill="url(#blip-gradient)">
-              <animatemotion path="{{this.path}}" begin="0s" dur="{{this.time}}s" repeatCount="indefinite" rotate="auto" />
-            </rect>
-          </mask>
-        </defs>
+			{{#each trendLines}}
+				<line class="best-fit" x1="{{start}}" y1="{{avgA}}" x2="{{end}}" y2="{{avgB}}" stroke-dashoffset="{{length}}" stroke-dasharray="{{length}}" />
+			{{/each}}
+		</svg>
 
-        <!-- <path class="data-points-line" d="{{this.path}}" stroke-dashoffset="{{this.length}}" stroke-dasharray="{{this.length}}" filter="url(#line-light)"/> -->
-        <path class="data-points-line" d="{{this.path}}" stroke-dashoffset="{{this.length}}" stroke-dasharray="{{this.length}}" />
-        <path class="data-points-line data-points-blip" d="{{this.path}}" mask="url(#{{../id}}-blip-mask)"/>
-      </g>
-      {{/each}}
-
-      {{#each trendLines}}
-      <line class="best-fit"
-        x1="{{start}}" y1="{{avgA}}"
-        x2="{{end}}" y2="{{avgB}}"
-        stroke-dashoffset="{{length}}" stroke-dasharray="{{length}}" />
-      {{/each}}
-    </svg>
-
-    <svg class="chart-x-axis"
-      width="{{svgData.chartWidth}}" height="{{svgData.chartXAxisHeight}}"
-      x="{{svgData.chartBodyOffset}}" y="{{svgData.chartBodyHeight}}">
-
-      {{#each svgData.chartXAxisTicMarks}}
-      <g class="tic-mark" transform="translate({{x}}, 0) rotate(-45)">
-        <line class="tic-mark-line" y1="0" x1="0" y2="5" x2="0" />
-        <text class="tic-mark-text" x="0" y="6">
-          {{text}}
-        </text>
-      </g>
-      {{/each}}
-    </svg>
-  </svg>
+		<svg class="chart-x-axis" width="{{svgData.chartWidth}}" height="{{svgData.chartXAxisHeight}}" x="{{svgData.chartBodyOffset}}" y="{{svgData.chartBodyHeight}}">
+			{{#each svgData.chartXAxisTicMarks}}
+				<g class="tic-mark" transform="translate({{x}}, 0) rotate(-45)">
+					<line class="tic-mark-line" y1="0" x1="0" y2="5" x2="0" />
+					<text class="tic-mark-text" x="0" y="6">
+						{{text}}
+					</text>
+				</g>
+			{{/each}}
+		</svg>
+	</svg>
 </div>
