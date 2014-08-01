@@ -5,3 +5,5 @@ node_modules/
 .tmp/
 .sass-cache/
 temp/
+.tern-project
+.csscomb.json

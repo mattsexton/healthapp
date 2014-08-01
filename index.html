@@ -1,66 +1,68 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<title>Health Project</title>
+  <head>
+    <title>Health Project</title>
 
-	<meta name="viewport" content="initial-scale=1.0">
-	<!-- <meta name="viewport" content="user-scalable=0, initial-scale=1.0"> -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-	<link rel="apple-touch-icon" href="touch-icon-iphone.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
+    <link rel="apple-touch-icon" href="resources/touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="resources/touch-icon-ipad-retina.png">
+    <link rel="icon" href="resources/app-icon.icns" sizes="16x16 32x32 128x128 256x256" type="image/x-icon" />
 
-	<link rel="icon" href="app-icon.icns" sizes="16x16 32x32 128x128 256x256" type="image/x-icon" />
+    <!--
+    <link rel="apple-touch-icon" sizes="76x76" href="resources/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="resources/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-startup-image" href="images/ios_startup.png">
+    <link rel="apple-touch-startup-image" href="images/ios_startup@2x.png" sizes="640x920">
+    <link rel="apple-touch-startup-image" href="images/ios_startup-large@2x.png" sizes="640x1096">
+    -->
 
-	<!-- <link rel="apple-touch-startup-image" href="images/ios_startup.png">
-  <link rel="apple-touch-startup-image" href="images/ios_startup@2x.png" sizes="640x920">
-  <link rel="apple-touch-startup-image" href="images/ios_startup-large@2x.png" sizes="640x1096"> -->
+    <link rel="stylesheet" type="text/css" href="css/core.css">
+  </head>
 
-	<link rel="stylesheet" type="text/css" href="css/core.css">
-</head>
+  <body>
+    <header>
+      <h1>Health Project</h1>
+      <button id="reload-page" onclick="window.location.reload(true);">reload</button>
+    </header>
 
-<body>
-	<h1>
-		Health Project
-		<button id="reload-page" onclick="window.location.reload(true);">reload</button>
-	</h1>
-	<main>
-		<div id="health-data"></div>
-	</main>
-	<footer>
-		<svg id="svg-defs" height="0" width="0">
-			<defs>
-				<pattern id="horizontal-grid" width="20" height="25" patternunits="userSpaceOnUse">
-					<line class="major-line" x1="0" y1="0" x2="20" y2="0" />
-					<line class="minor-line" x1="0" y1="6.25" x2="20" y2="6.25" />
-					<line class="minor-line" x1="0" y1="12.5" x2="20" y2="12.5" />
-					<line class="minor-line" x1="0" y1="18.75" x2="20" y2="18.75" />
-				</pattern>
+    <main>
+      <div id="health-data"></div>
+    </main>
 
-				<lineargradient id="blip-gradient" x1="0%" y1="0%" x2="100%" y2="0%" spreadmethod="pad">
-					<stop offset="0%" stop-color="white" stop-opacity="0" />
-					<stop offset="65%" stop-color="white" stop-opacity=".5" />
-					<stop offset="85%" stop-color="white" stop-opacity="1" />
-					<stop offset="100%" stop-color="white" stop-opacity="1" />
-				</lineargradient>
+    <footer>
+      <svg id="svg-defs" height="0" width="0">
+        <defs>
+          <pattern id="horizontal-grid" width="20" height="25" patternunits="userSpaceOnUse">
+            <line class="major-line" x1="0" y1="0" x2="20" y2="0" />
+            <line class="minor-line" x1="0" y1="6.25" x2="20" y2="6.25" />
+            <line class="minor-line" x1="0" y1="12.5" x2="20" y2="12.5" />
+            <line class="minor-line" x1="0" y1="18.75" x2="20" y2="18.75" />
+          </pattern>
 
-				<filter id="line-light">
-					<feGaussianBlur in="SourceAlpha" stdDeviation="1" result="A" />
-					<feSpecularLighting in="A" surfaceScale="1" specularConstant=".95" specularExponent="25" lighting-color="#bbbbbb" result="C">
-						<fePointLight x="-5000" y="-10000" z="10000" />
-					</feSpecularLighting>
-					<feComposite in="C" in2="SourceAlpha" operator="in" result="C" />
-					<feComposite in="SourceGraphic" in2="C" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="D" />
-				</filter>
-			</defs>
-		</svg>
+          <lineargradient id="blip-gradient" x1="0%" y1="0%" x2="100%" y2="0%" spreadmethod="pad">
+            <stop offset="0%" stop-color="white" stop-opacity="0" />
+            <stop offset="65%" stop-color="white" stop-opacity=".5" />
+            <stop offset="85%" stop-color="white" stop-opacity="1" />
+            <stop offset="100%" stop-color="white" stop-opacity="1" />
+          </lineargradient>
 
-		<div id="templates"></div>
-		<script src="js/module.manager.js" type="text/javascript" charset="utf-8" data-init="main"></script>
-	</footer>
-</body>
+          <filter id="line-light">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="A" />
+            <feSpecularLighting in="A" surfaceScale="1" specularConstant=".95" specularExponent="25" lighting-color="#bbbbbb" result="C">
+              <fePointLight x="-5000" y="-10000" z="10000" />
+            </feSpecularLighting>
+            <feComposite in="C" in2="SourceAlpha" operator="in" result="C" />
+            <feComposite in="SourceGraphic" in2="C" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="D" />
+          </filter>
+        </defs>
+      </svg>
+
+      <div id="templates"></div>
+      <script src="js/module.manager.js" type="text/javascript" charset="utf-8" data-init="main"></script>
+    </footer>
+  </body>
 
 </html>

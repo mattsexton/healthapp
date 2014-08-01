@@ -9,7 +9,7 @@
  */
 
 body {
-  font-family: 'Helvetica Neue';
+  font-family: "Helvetica Neue";
   font-size: 10pt;
 }
 
@@ -23,12 +23,12 @@ body {
 }
 
 .template-view .chart {
+  overflow-x: auto;
+  overflow-y: hidden;
   width: 250px;
   height: 275px;
   border: 1px solid #787878;
   box-shadow: 10px 10px 5px #787878;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 .template-view .chart .chart-x-axis .tic-mark .tic-mark-line {
   stroke: black;
@@ -40,9 +40,9 @@ body {
   glyph-orientation-vertical: 90;
 }
 .template-view .chart .chart-y-axis {
+  position: absolute;
   width: 25px;
   height: 250px;
-  position: absolute;
 }
 .template-view .chart .chart-y-axis .background-fill {
   fill: white;
@@ -78,16 +78,16 @@ body {
   stroke: black;
 }
 .template-view .chart .color-band.green {
-  fill: rgba(0, 255, 0, 0.05);
+  fill: rgba(0, 255, 0, 0.1);
 }
 .template-view .chart .color-band.yellow {
-  fill: rgba(255, 255, 0, 0.05);
+  fill: rgba(255, 255, 0, 0.1);
 }
 .template-view .chart .color-band.orange {
-  fill: rgba(255, 174, 0, 0.05);
+  fill: rgba(255, 174, 0, 0.1);
 }
 .template-view .chart .color-band.red {
-  fill: rgba(255, 0, 0, 0.05);
+  fill: rgba(255, 0, 0, 0.1);
 }
 
 @-webkit-keyframes animate-dash-offset {

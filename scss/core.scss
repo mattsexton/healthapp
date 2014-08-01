@@ -4,7 +4,7 @@
 
 body
 {
-    font-family: 'Helvetica Neue';
+    font-family: "Helvetica Neue";
     font-size: 10pt;
 }
 
@@ -27,12 +27,12 @@ body
 {
     .chart
     {
+        overflow-x: auto;
+        overflow-y: hidden;
         width: 250px;
         height: 275px;
         border: 1px solid $light-gray;
         box-shadow: 10px 10px 5px $light-gray;
-        overflow-x: auto;
-        overflow-y: hidden;
 
         .chart-x-axis
         {
@@ -55,9 +55,9 @@ body
 
         .chart-y-axis
         {
+            position: absolute;
             width: 25px;
             height: 250px;
-            position: absolute;
 
             .background-fill
             {
@@ -80,8 +80,6 @@ body
             }
         }
 
-        // .data-points
-        // {
         .data-points-line
         {
             -webkit-animation: animate-dash-offset 3s ease-in 1 forwards;
@@ -94,14 +92,11 @@ body
         .data-points-fill
         {
             fill: rgba($fruit-salad, 10/100);
-            // fill: rgba($fruit-salad, 100/100);
-            // fill: hsla(360, 0%, 100%, 1);
         }
 
         .data-points-blip
         {
             fill: red;
-            // fill: url(#blip-gradient);
             stroke: none;
         }
 
@@ -109,7 +104,6 @@ body
         {
             stroke: rgba(255, 255, 0, 1);
         }
-        // }
 
         .best-fit
         {
@@ -123,22 +117,22 @@ body
         {
             &.green
             {
-                fill: rgba(0, 255, 0, 0.05);
+                fill: rgba(0, 255, 0, 0.1);
             }
 
             &.yellow
             {
-                fill: rgba(255, 255, 0, 0.05);
+                fill: rgba(255, 255, 0, 0.1);
             }
 
             &.orange
             {
-                fill: rgba(255, 174, 0, 0.05);
+                fill: rgba(255, 174, 0, 0.1);
             }
 
             &.red
             {
-                fill: rgba(255, 0, 0, 0.05);
+                fill: rgba(255, 0, 0, 0.1);
             }
         }
     }
@@ -151,7 +145,6 @@ body
         stroke-dashoffset: 0px;
     }
 }
-
 
 @-webkit-keyframes animate-stroke-width
 {
