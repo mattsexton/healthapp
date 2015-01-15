@@ -21,7 +21,7 @@
     "requireRightStickedOperators": ["!"],
     "requireSpaceAfterKeywords": ["if","else","for","while","do","switch","return","try","catch"],
     "requireSpacesInFunctionExpression": {"beforeOpeningCurlyBrace": true},
-    "validateIndentation": "\t",
+    "validateIndentation": "  ",
     "validateJSDoc": {"checkParamNames": true,"requireParamTypes": true},
     "validateQuoteMarks": "'"
 }

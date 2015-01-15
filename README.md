@@ -1,4 +1,4 @@
 # Matt's HealthApp
 =========
 
-This is currently under slow, but somthing that I pretend to call active, development.
+This is currently under slow, but something that I pretend to call active, development.

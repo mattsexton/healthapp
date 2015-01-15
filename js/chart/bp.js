@@ -251,6 +251,12 @@ module(['helpers/views'], function(views)
     // 	return val;
     // }
 
+    /**
+     * Convert a point to the mapped coordinate.
+     * @param {number} point [description]
+     * @param {number} value [description]
+     * @returns {string} the mapped point
+     */
     function convertToCoordinate(point, value)
     {
       point = Math.round((point * this.svgData.multiplier) + this.svgData.offset);
@@ -300,13 +306,13 @@ module(['helpers/views'], function(views)
         id: id,
         barData: chart.createBarData('bpsys', 'bpdia'),
         trendLines: [
-     chart.createTrendLine('bpsys'),
-     chart.createTrendLine('bpdia')
-    ],
+          chart.createTrendLine('bpsys'),
+          chart.createTrendLine('bpdia')
+        ],
         dataPoints: [
-     chart.createDataPoints('bpsys'),
-     chart.createDataPoints('bpdia')
-    ],
+          chart.createDataPoints('bpsys'),
+          chart.createDataPoints('bpdia')
+        ],
         svgData: chart.svgData
       };
 
@@ -320,17 +326,17 @@ module(['helpers/views'], function(views)
         id: id,
         barData: chart.createBarData('bpsys'),
         trendLines: [
-     chart.createTrendLine('bpsys')
-    ],
+          chart.createTrendLine('bpsys')
+        ],
         dataPoints: [
-     chart.createDataPoints('bpsys')
-    ],
+          chart.createDataPoints('bpsys')
+        ],
         colorBands: [
-     chart.createColorBand(180, 160, 'red'),
-     chart.createColorBand(160, 140, 'orange'),
-     chart.createColorBand(140, 120, 'yellow'),
-     chart.createColorBand(120, 90, 'green')
-    ],
+          chart.createColorBand(180, 160, 'red'),
+          chart.createColorBand(160, 140, 'orange'),
+          chart.createColorBand(140, 120, 'yellow'),
+          chart.createColorBand(120, 90, 'green')
+        ],
         svgData: chart.svgData
       };
 
@@ -344,17 +350,17 @@ module(['helpers/views'], function(views)
         id: id,
         barData: chart.createBarData('bpdia'),
         trendLines: [
-     chart.createTrendLine('bpdia')
-    ],
+          chart.createTrendLine('bpdia')
+        ],
         dataPoints: [
-     chart.createDataPoints('bpdia')
-    ],
+          chart.createDataPoints('bpdia')
+        ],
         colorBands: [
-     chart.createColorBand(120, 100, 'red'),
-     chart.createColorBand(100, 90, 'orange'),
-     chart.createColorBand(90, 80, 'yellow'),
-     chart.createColorBand(80, 60, 'green')
-    ],
+          chart.createColorBand(120, 100, 'red'),
+          chart.createColorBand(100, 90, 'orange'),
+          chart.createColorBand(90, 80, 'yellow'),
+          chart.createColorBand(80, 60, 'green')
+        ],
         svgData: chart.svgData
       };
 
